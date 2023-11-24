@@ -1,6 +1,17 @@
 #!/usr/bin/python3
+"""
+Instantiates a storage object.
 
-from models.engine.file_storage import Storage
+Instantiates a database storage engine (DBStorage),
+if env viriable is set to db.
+"""
+from os import getenv
 
-storage = Storage()
+
+if getenv("HBNB_TYPE_STORAGE") == "db":
+    from models.engine.db_storage import DBStorage
+    storage = DBStorage()
+else:
+    from models.engine.file_storage import FileStorage
+    storage = FileStorage()
 storage.reload()
